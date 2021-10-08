@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
 import Head from "next/head";
+import Link from "next/link";
 import { Container } from "../src/components/Container";
 import styles from "../styles/Home.module.css";
 import Logo from "../public/Logo.png";
 import { api } from "./api/hello";
+import { Button } from "../src/components/Button";
 
 export default function Home() {
   const [cityName, setCityName] = useState("");
@@ -28,8 +30,9 @@ export default function Home() {
   }
 
   useEffect(() => {
-    console.log("fetchCity", temperature);
-  }, [temperature]);
+    console.log("temperatura", temperature);
+    console.log("musicas", songList);
+  }, [temperature, songList]);
 
   function fetchMusic(temp) {
     let genre = "";
@@ -56,11 +59,25 @@ export default function Home() {
       .request(options)
       .then(function (response) {
         setSongList(response.data.tracks.hits);
-        console.log(response.data.tracks.hits);
       })
       .catch(function (error) {
         console.error(error);
       });
+  }
+  function handleSaveList() {
+    let songListSaved = new Array();
+    if (localStorage.hasOwnProperty("songListSaved")) {
+      songListSaved = JSON.parse(localStorage.getItem("songListSaved"));
+    }
+    // const search = {
+    //   date: new Date(),
+    //   temperature,
+    //   cityName,
+    //   songList,
+    // };
+
+    songListSaved.push(songList);
+    localStorage.setItem("songListSaved", JSON.stringify(songListSaved));
   }
 
   return (
@@ -86,15 +103,28 @@ export default function Home() {
               className={styles.input}
             />
             <input type="submit" value="Pesquisar" className={styles.input} />
+            <button>
+              <Link href="/MyPlaylists">Minhas Playlists</Link>
+            </button>
           </form>
         </div>
         {showCity ? (
           <div style={{ textAlign: "center" }}>
             Em <strong>{cityName.toUpperCase()}</strong> está {temperature}°C
-            <div>Sugestões de musicas para esse clima: </div>
+            <div style={{ textAlign: "center" }}>
+              Sugestões de musicas para esse clima:{" "}
+            </div>
             {songList.map((song) => {
-              return <div key={song.track.key}>{song.track.title}</div>;
+              return (
+                <div
+                  style={{ textAlign: "left", marginBottom: 10 }}
+                  key={song.track.key}
+                >
+                  {song.track.title} - {song.track.subtitle}{" "}
+                </div>
+              );
             })}
+            <button onClick={handleSaveList}>SALVAR</button>
           </div>
         ) : (
           ""

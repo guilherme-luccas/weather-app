@@ -7,7 +7,8 @@ export function Container({ children }) {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        height: "100%",
+        marginTop: 50,
       }}
     >
       {children}
