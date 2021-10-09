@@ -1,6 +1,7 @@
 export function Button({ children }) {
   return (
     <button
+    
       style={{
         width: 200,
         height: 40,

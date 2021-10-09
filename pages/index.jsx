@@ -128,10 +128,10 @@ export default function Home() {
               className={styles.input}
               disabled={!cityName}
             />
-            <Button>
-              <Link href="/MyPlaylists">Minhas Playlists</Link>
-            </Button>
           </form>
+          <Button>
+            <Link href="/MyPlaylists">Minhas Playlists</Link>
+          </Button>
         </div>
         {showCity && loading == false ? (
           <div style={{ textAlign: "center" }}>
@@ -149,7 +149,22 @@ export default function Home() {
                 </div>
               );
             })}
-            <Button onClick={() => handleSaveList(temperature)}>SALVAR</Button>
+            <button
+              style={{
+                width: 90,
+                height: 30,
+                backgroundColor: "#0ec99d85",
+                border: "none",
+                textDecoration: "none",
+                cursor: "pointer",
+                borderRadius: 10,
+                fontFamily: "sans-serif",
+                fontWeight: "bold",
+              }}
+              onClick={() => handleSaveList(temperature)}
+            >
+              SALVAR
+            </button>
           </div>
         ) : (
           showCity && <Loading />

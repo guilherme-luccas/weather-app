@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button } from "../src/components/Button";
 import { Container } from "../src/components/Container";
 
 export default function MyPlaylists() {
@@ -33,64 +32,78 @@ export default function MyPlaylists() {
 
   return (
     <Container>
-      <button>
+      <button
+        style={{
+          width: 90,
+          height: 30,
+          backgroundColor: "#0ec99d85",
+          border: "none",
+          textDecoration: "none",
+          cursor: "pointer",
+          borderRadius: 10,
+          fontFamily: "sans-serif",
+          fontWeight: "bold",
+        }}
+      >
         <Link href="/">Voltar</Link>
       </button>
       <div>
-        {playlists.map((pl, index) => {
-          return (
-            <div
-              style={{
-                backgroundColor: "#0ec99d85",
-                border: "5px solid #00000026",
-                borderRadius: "10px",
-                marginTop: "10px",
-                padding: "10px",
-              }}
-              key={index}
-            >
-              Playlist {index + 1}
+        {localStorage.getItem("songListSaved") &&
+          playlists.map((pl, index) => {
+            return (
               <div
                 style={{
-                  display: "flex",
-                  width: "100%",
-                  justifyContent: "space-between",
-                  fontFamily: "sans-serif",
-                  fontWeight: "bold",
-                  textTransform: "uppercase",
-                  fontSize: "17px",
+                  minWidth: 800,
+                  backgroundColor: "#0ec99d85",
+                  border: "5px solid #00000026",
+                  borderRadius: "10px",
+                  marginTop: "10px",
+                  padding: "10px",
                 }}
+                key={index}
               >
-                <p>{pl.cityName}</p>
-                <p>{pl.genre}</p>
-                <p>Temperatura {pl.temperature}°C</p>
+                Playlist {index + 1}
+                <div
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "space-between",
+                    fontFamily: "sans-serif",
+                    fontWeight: "bold",
+                    textTransform: "uppercase",
+                    fontSize: "17px",
+                  }}
+                >
+                  <p>{pl.cityName}</p>
+                  <p>{pl.genre}</p>
+                  <p>Temperatura {pl.temperature}°C</p>
+                </div>
+                {pl.songList.map((song, index) => {
+                  return (
+                    <div
+                      style={{
+                        width: "100%",
+                        fontFamily: "sans-serif",
+                        fontWeight: "bold",
+                        marginBottom: "10px",
+                      }}
+                      key={index}
+                    >
+                      {song.track.title} - {song.track.subtitle}
+                    </div>
+                  );
+                })}
+                <button
+                  style={{
+                    marginBottom: "10px",
+                  }}
+                  onClick={() => deletePlaylist(index)}
+                >
+                  Excluir playlist {index + 1}
+                </button>
               </div>
-              {pl.songList.map((song, index) => {
-                return (
-                  <div
-                    style={{
-                      width: "100%",
-                      fontFamily: "sans-serif",
-                      fontWeight: "bold",
-                      marginBottom: "10px",
-                    }}
-                    key={index}
-                  >
-                    {song.track.title} - {song.track.subtitle}
-                  </div>
-                );
-              })}
-              <button
-                style={{
-                  marginBottom: "10px",
-                }}
-                onClick={() => deletePlaylist(index)}
-              >
-                Excluir playlist {index + 1}
-              </button>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </Container>
   );
