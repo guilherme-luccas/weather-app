@@ -8,12 +8,17 @@ export default function MyPlaylists() {
   const [playlists, setPlaylists] = useState([]);
   const [monitor, setMonitor] = useState(true);
   const { themeLight } = useContext(ThemeContext);
+  const ISSERVER = typeof window === "undefined";
 
   function deletePlaylist(ev) {
-    let arr = [...JSON.parse(localStorage.getItem("songListSaved"))];
-    arr.splice(ev, 1);
-    localStorage.setItem("songListSaved", JSON.stringify(arr));
-    setMonitor(!monitor);
+    if (!ISSERVER) {
+      // Access localStorage
+
+      let arr = [...JSON.parse(localStorage.getItem("songListSaved"))];
+      arr.splice(ev, 1);
+      localStorage.setItem("songListSaved", JSON.stringify(arr));
+      setMonitor(!monitor);
+    }
   }
 
   useEffect(() => {
