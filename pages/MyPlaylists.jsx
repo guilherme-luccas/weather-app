@@ -8,15 +8,13 @@ export default function MyPlaylists() {
   const [playlists, setPlaylists] = useState([]);
   const [monitor, setMonitor] = useState(true);
   const { themeLight } = useContext(ThemeContext);
-  const ISSERVER = typeof window === "undefined";
+  const [localS, setLocalS] = useState(null);
 
   function deletePlaylist(ev) {
-    if (!ISSERVER) {
-      let arr = [...JSON.parse(localStorage.getItem("songListSaved"))];
-      arr.splice(ev, 1);
-      localStorage.setItem("songListSaved", JSON.stringify(arr));
-      setMonitor(!monitor);
-    }
+    let arr = [...JSON.parse(localStorage.getItem("songListSaved"))];
+    arr.splice(ev, 1);
+    localStorage.setItem("songListSaved", JSON.stringify(arr));
+    setMonitor(!monitor);
   }
 
   useEffect(() => {
@@ -24,12 +22,11 @@ export default function MyPlaylists() {
     //   pl.map((song) => song.track)
     // );
 
-    if (!ISSERVER) {
-      const songs = JSON.parse(localStorage.getItem("songListSaved"));
+    const songs = JSON.parse(localStorage.getItem("songListSaved"));
+    setLocalS(songs);
 
-      console.log("songs", songs);
-      setPlaylists(songs);
-    }
+    console.log("songs", songs);
+    setPlaylists(songs);
   }, [monitor]);
 
   useEffect(() => {
@@ -74,7 +71,7 @@ export default function MyPlaylists() {
         </Link>
 
         <div>
-          {localStorage.getItem("songListSaved") &&
+          {localS &&
             playlists.map((pl, index) => {
               return (
                 <div
