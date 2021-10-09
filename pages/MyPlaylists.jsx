@@ -8,26 +8,24 @@ export default function MyPlaylists() {
   const [playlists, setPlaylists] = useState([]);
   const [monitor, setMonitor] = useState(true);
   const { themeLight } = useContext(ThemeContext);
-  const ISSERVER = typeof window === "undefined";
 
   function deletePlaylist(ev) {
-    if (!ISSERVER) {
-      // Access localStorage
-      let arr = [...JSON.parse(localStorage.getItem("songListSaved"))];
-      arr.splice(ev, 1);
-      localStorage.setItem("songListSaved", JSON.stringify(arr));
-      setMonitor(!monitor);
-    }
+    let arr = [...JSON.parse(localStorage.getItem("songListSaved"))];
+    arr.splice(ev, 1);
+    localStorage.setItem("songListSaved", JSON.stringify(arr));
+    setMonitor(!monitor);
   }
 
   useEffect(() => {
     // const songs = JSON.parse(localStorage.getItem("songListSaved")).map((pl) =>
     //   pl.map((song) => song.track)
     // );
-    const songs = JSON.parse(localStorage.getItem("songListSaved"));
+    if (typeof window !== "undefined") {
+      const songs = JSON.parse(localStorage.getItem("songListSaved"));
 
-    console.log("songs", songs);
-    setPlaylists(songs);
+      console.log("songs", songs);
+      setPlaylists(songs);
+    }
   }, [monitor]);
 
   useEffect(() => {
@@ -45,6 +43,19 @@ export default function MyPlaylists() {
       }}
     >
       <Container>
+        <div
+          style={{
+            width: 170,
+            display: "flex",
+            justifyContent: "space-between",
+            fontWeight: "bold",
+            color: themeLight ? "black" : "white",
+            marginTop: "20px",
+          }}
+        >
+          Mudar tema
+          <SwitchToggle />
+        </div>
         <Link href="/">
           <span
             style={{
@@ -57,18 +68,7 @@ export default function MyPlaylists() {
             Voltar
           </span>
         </Link>
-        <div
-          style={{
-            width: 170,
-            display: "flex",
-            justifyContent: "space-between",
-            fontWeight: "bold",
-            color: themeLight ? "black" : "white",
-          }}
-        >
-          Mudar tema
-          <SwitchToggle />
-        </div>
+
         <div>
           {localStorage.getItem("songListSaved") &&
             playlists.map((pl, index) => {
