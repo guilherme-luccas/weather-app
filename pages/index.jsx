@@ -187,6 +187,7 @@ export default function Home() {
                 width: 200,
                 backgroundColor: "#0ec99d",
                 color: "white",
+                marginBottom: 10,
               }}
               onChange={(ev) => {
                 setCityName(ev.target.value);
