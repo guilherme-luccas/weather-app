@@ -7,6 +7,7 @@ import { Container } from "../src/components/Container";
 import styles from "../styles/Home.module.css";
 import Logo from "../public/Logo.png";
 import { api } from "./api/hello";
+import { Loading } from "../src/components/Loading";
 import { Button } from "../src/components/Button";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
   const [temperature, setTemperature] = useState(0);
   const [showCity, setShowCity] = useState(false);
   const [songList, setSongList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -35,6 +37,8 @@ export default function Home() {
   }, [temperature, songList]);
 
   function fetchMusic(temp) {
+    setLoading(true);
+
     let genre = "";
     if (temp >= 32) {
       genre = "rock";
@@ -59,24 +63,39 @@ export default function Home() {
       .request(options)
       .then(function (response) {
         setSongList(response.data.tracks.hits);
+        setLoading(false);
       })
       .catch(function (error) {
         console.error(error);
       });
   }
-  function handleSaveList() {
+  function handleSaveList(temp) {
+    let genre = "";
+    if (temp >= 32) {
+      genre = "rock";
+    } else if (temp < 32 && temp >= 24) {
+      genre = "pop";
+    } else if (temp < 24 && temp >= 16) {
+      genre = "classical";
+    } else if (temp < 16) {
+      genre = "lofi";
+    }
     let songListSaved = new Array();
     if (localStorage.hasOwnProperty("songListSaved")) {
       songListSaved = JSON.parse(localStorage.getItem("songListSaved"));
     }
-    // const search = {
-    //   date: new Date(),
-    //   temperature,
-    //   cityName,
-    //   songList,
-    // };
+    let date = new Date();
+    let dateFormated =
+      date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+    const search = {
+      date: dateFormated,
+      genre,
+      temperature,
+      cityName,
+      songList,
+    };
 
-    songListSaved.push(songList);
+    songListSaved.push(search);
     localStorage.setItem("songListSaved", JSON.stringify(songListSaved));
   }
 
@@ -102,13 +121,19 @@ export default function Home() {
               type="text"
               className={styles.input}
             />
-            <input type="submit" value="Pesquisar" className={styles.input} />
-            <button>
+            <input
+              style={{ marginRight: 10 }}
+              type="submit"
+              value="Pesquisar"
+              className={styles.input}
+              disabled={!cityName}
+            />
+            <Button>
               <Link href="/MyPlaylists">Minhas Playlists</Link>
-            </button>
+            </Button>
           </form>
         </div>
-        {showCity ? (
+        {showCity && loading == false ? (
           <div style={{ textAlign: "center" }}>
             Em <strong>{cityName.toUpperCase()}</strong> está {temperature}°C
             <div style={{ textAlign: "center" }}>
@@ -124,10 +149,10 @@ export default function Home() {
                 </div>
               );
             })}
-            <button onClick={handleSaveList}>SALVAR</button>
+            <Button onClick={() => handleSaveList(temperature)}>SALVAR</Button>
           </div>
         ) : (
-          ""
+          showCity && <Loading />
         )}
       </Container>
     </Container>

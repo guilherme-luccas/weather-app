@@ -5,20 +5,21 @@ import { Container } from "../src/components/Container";
 
 export default function MyPlaylists() {
   const [playlists, setPlaylists] = useState([]);
-  const [monitor,setMonitor]= useState(true);
+  const [monitor, setMonitor] = useState(true);
 
   function deletePlaylist(ev) {
     let arr = [...JSON.parse(localStorage.getItem("songListSaved"))];
     arr.splice(ev, 1);
     localStorage.setItem("songListSaved", JSON.stringify(arr));
-    setMonitor(!monitor)
-    
+    setMonitor(!monitor);
   }
 
   useEffect(() => {
-    const songs = JSON.parse(localStorage.getItem("songListSaved")).map((pl) =>
-      pl.map((song) => song.track)
-    );
+    // const songs = JSON.parse(localStorage.getItem("songListSaved")).map((pl) =>
+    //   pl.map((song) => song.track)
+    // );
+    const songs = JSON.parse(localStorage.getItem("songListSaved"));
+
     console.log("songs", songs);
     setPlaylists(songs);
   }, [monitor]);
@@ -37,14 +38,54 @@ export default function MyPlaylists() {
       </button>
       <div>
         {playlists.map((pl, index) => {
-          console.log(pl);
           return (
-            <div key={index}>
+            <div
+              style={{
+                backgroundColor: "#0ec99d85",
+                border: "5px solid #00000026",
+                borderRadius: "10px",
+                marginTop: "10px",
+                padding: "10px",
+              }}
+              key={index}
+            >
               Playlist {index + 1}
-              {pl.map((song) => {
-                return <div key={song.key}>{song.title}</div>;
+              <div
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "space-between",
+                  fontFamily: "sans-serif",
+                  fontWeight: "bold",
+                  textTransform: "uppercase",
+                  fontSize: "17px",
+                }}
+              >
+                <p>{pl.cityName}</p>
+                <p>{pl.genre}</p>
+                <p>Temperatura {pl.temperature}°C</p>
+              </div>
+              {pl.songList.map((song, index) => {
+                return (
+                  <div
+                    style={{
+                      width: "100%",
+                      fontFamily: "sans-serif",
+                      fontWeight: "bold",
+                      marginBottom: "10px",
+                    }}
+                    key={index}
+                  >
+                    {song.track.title} - {song.track.subtitle}
+                  </div>
+                );
               })}
-              <button onClick={() => deletePlaylist(index)}>
+              <button
+                style={{
+                  marginBottom: "10px",
+                }}
+                onClick={() => deletePlaylist(index)}
+              >
                 Excluir playlist {index + 1}
               </button>
             </div>
