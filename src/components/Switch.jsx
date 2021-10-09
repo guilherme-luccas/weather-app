@@ -9,7 +9,6 @@ export function SwitchToggle() {
   function handleChange() {
     setChecked(!checked);
     ChangeTheme(themeLight);
-    console.log(themeLight);
   }
 
   return (

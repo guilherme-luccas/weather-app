@@ -11,8 +11,8 @@ export function Container({ children }) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        height: "100%",
         backgroundColor: themeLight ? "white" : "black",
+        paddingBottom: "30px",
       }}
     >
       {children}
