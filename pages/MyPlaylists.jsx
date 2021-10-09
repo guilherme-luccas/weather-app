@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Container } from "../src/components/Container";
 import { SwitchToggle } from "../src/components/Switch";
 import { ThemeContext } from "../src/ThemeContext";
+import styles from "../styles/MyPlaylists.module.css";
 
 export default function MyPlaylists() {
   const [playlists, setPlaylists] = useState([]);
@@ -45,13 +46,9 @@ export default function MyPlaylists() {
     >
       <Container>
         <div
+          className={styles.switchContainer}
           style={{
-            width: 170,
-            display: "flex",
-            justifyContent: "space-between",
-            fontWeight: "bold",
             color: themeLight ? "black" : "white",
-            marginTop: "20px",
           }}
         >
           Mudar tema
@@ -59,11 +56,9 @@ export default function MyPlaylists() {
         </div>
         <Link href="/">
           <span
+            className={styles.spanBack}
             style={{
               color: themeLight ? "black" : "white",
-              cursor: "pointer",
-              fontWeight: "bold",
-              marginTop: "20px",
             }}
           >
             Voltar
@@ -75,61 +70,27 @@ export default function MyPlaylists() {
             playlists.map((pl, index) => {
               return (
                 <div
+                  className={styles.playlist}
                   style={{
-                    minWidth: 800,
-                    backgroundColor: "#0ec99d",
-                    border: "5px solid #00000026",
-                    borderRadius: "10px",
-                    marginTop: "10px",
-                    padding: "10px",
                     color: themeLight ? "white" : "black",
                   }}
                   key={index}
                 >
                   Playlist {index + 1}
-                  <div
-                    style={{
-                      display: "flex",
-                      width: "100%",
-                      justifyContent: "space-between",
-                      fontFamily: "sans-serif",
-                      fontWeight: "bold",
-                      textTransform: "uppercase",
-                      fontSize: "17px",
-                    }}
-                  >
+                  <div className={styles.playlistHeader}>
                     <p>{pl.cityName}</p>
                     <p>{pl.genre}</p>
                     <p>Temperatura {pl.temperature}°C</p>
                   </div>
                   {pl.songList.map((song, index) => {
                     return (
-                      <div
-                        style={{
-                          width: "100%",
-                          fontFamily: "sans-serif",
-                          fontWeight: "bold",
-                          marginBottom: "10px",
-                        }}
-                        key={index}
-                      >
+                      <div className={styles.playlistSong} key={index}>
                         {song.track.title} - {song.track.subtitle}
                       </div>
                     );
                   })}
                   <button
-                    style={{
-                      width: 120,
-                      height: 40,
-                      backgroundColor: "white",
-                      color: "black",
-                      border: "none",
-                      textDecoration: "none",
-                      cursor: "pointer",
-                      borderRadius: 10,
-                      fontFamily: "sans-serif",
-                      fontWeight: "bold",
-                    }}
+                    className={styles.button}
                     onClick={() => deletePlaylist(index)}
                   >
                     Excluir Playlist

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import Image from "next/image";
 import axios from "axios";
 import Head from "next/head";
@@ -8,7 +8,6 @@ import styles from "../styles/Home.module.css";
 import Logo from "../public/Logo.png";
 import { api } from "./api/hello";
 import { Loading } from "../src/components/Loading";
-import { Button } from "../src/components/Button";
 import { ThemeContext } from "../src/ThemeContext";
 import { SwitchToggle } from "../src/components/Switch";
 
@@ -40,15 +39,9 @@ export default function Home() {
     } catch (err) {
       if (err) {
         setValidCity(false);
-        console.log("digite cidade valida");
       }
     }
   }
-
-  useEffect(() => {
-    console.log("temperatura", temperature);
-    console.log("musicas", songList);
-  }, [temperature, songList]);
 
   function fetchMusic(temp) {
     setLoading(true);
@@ -143,30 +136,14 @@ export default function Home() {
             }}
           >
             weather
-            <span
-              style={{
-                color: "#0ec99d",
-              }}
-            >
-              Music
-            </span>
+            <span className={styles.spanMusic}>Music</span>
           </h1>{" "}
-          <span
-            style={{
-              fontSize: "6.25vw",
-            }}
-          >
-            .
-          </span>
+          <span className={styles.point}>.</span>
         </div>
         <div
+          className={styles.switchContainer}
           style={{
-            width: "150px",
-            display: "flex",
-            justifyContent: "space-between",
-            fontWeight: "bold",
             color: themeLight ? "black" : "white",
-            fontSize: "15px",
           }}
         >
           Mudar tema
@@ -176,19 +153,12 @@ export default function Home() {
           <h2
             style={{
               color: themeLight ? "black" : "white",
-              fontSize: "14px",
             }}
           >
             Digite uma cidade:
           </h2>
           <form onSubmit={handleSubmit}>
             <input
-              style={{
-                width: 200,
-                backgroundColor: "#0ec99d",
-                color: "white",
-                marginBottom: 10,
-              }}
               onChange={(ev) => {
                 setCityName(ev.target.value);
                 setShowCity(false);
@@ -199,14 +169,6 @@ export default function Home() {
               className={styles.input}
             />
             <input
-              style={{
-                width: 200,
-
-                marginRight: "0.52vw",
-                backgroundColor: "#0ec99d",
-                color: "white",
-                cursor: "pointer",
-              }}
               type="submit"
               value="Pesquisar"
               className={styles.input}
@@ -215,11 +177,9 @@ export default function Home() {
           </form>
           <Link href="/MyPlaylists">
             <span
+              className={styles.myPlaylists}
               style={{
                 color: themeLight ? "black" : "white",
-                cursor: "pointer",
-                fontWeight: "bold",
-                fontSize: "12px",
               }}
             >
               Minhas Playlists
@@ -229,40 +189,24 @@ export default function Home() {
         {!validCity && <div>Digite uma cidade Válida</div>}
         {showCity && loading == false ? (
           <div
+            className={styles.randomMusics}
             style={{
-              textAlign: "center",
               color: themeLight ? "black" : "white",
-              fontWeight: "bold",
-              fontSize: 15,
             }}
           >
             Em <strong>{cityName.toUpperCase()}</strong> está {temperature}°C
-            <div style={{ textAlign: "center", marginBottom: 10 }}>
+            <div className={styles.suggestions}>
               Sugestões de musicas para esse clima:{" "}
             </div>
             {songList.map((song) => {
               return (
-                <div
-                  style={{ textAlign: "left", marginBottom: 10 }}
-                  key={song.track.key}
-                >
-                  {song.track.title} - {song.track.subtitle}{" "}
+                <div className={styles.song} key={song.track.key}>
+                  {song.track.title} - {song.track.subtitle}
                 </div>
               );
             })}
             <button
-              style={{
-                width: "100px",
-                height: "40px",
-                backgroundColor: "#0ec99d",
-                color: "white",
-                border: "none",
-                textDecoration: "none",
-                cursor: "pointer",
-                borderRadius: 10,
-                fontFamily: "sans-serif",
-                fontWeight: "bold",
-              }}
+              className={styles.button}
               onClick={() => handleSaveList(temperature)}
             >
               SALVAR
