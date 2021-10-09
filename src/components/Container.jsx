@@ -1,14 +1,18 @@
+import { useContext } from "react";
+import { ThemeContext } from "../ThemeContext";
+
 export function Container({ children }) {
+  const { themeLight } = useContext(ThemeContext);
+
   return (
     <div
       style={{
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
         height: "100%",
-        marginTop: 50,
+        backgroundColor: themeLight ? "white" : "black",
       }}
     >
       {children}
