@@ -10,10 +10,12 @@ export default function MyPlaylists() {
   const { themeLight } = useContext(ThemeContext);
 
   function deletePlaylist(ev) {
-    let arr = [...JSON.parse(localStorage.getItem("songListSaved"))];
-    arr.splice(ev, 1);
-    localStorage.setItem("songListSaved", JSON.stringify(arr));
-    setMonitor(!monitor);
+    if (typeof window !== "undefined") {
+      let arr = [...JSON.parse(localStorage.getItem("songListSaved"))];
+      arr.splice(ev, 1);
+      localStorage.setItem("songListSaved", JSON.stringify(arr));
+      setMonitor(!monitor);
+    }
   }
 
   useEffect(() => {
