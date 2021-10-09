@@ -78,6 +78,7 @@ export default function MyPlaylists() {
                 >
                   Playlist {index + 1}
                   <div className={styles.playlistHeader}>
+                    <p>{pl.date}</p>
                     <p>{pl.cityName}</p>
                     <p>{pl.genre}</p>
                     <p>Temperatura {pl.temperature}°C</p>
