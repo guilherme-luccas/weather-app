@@ -19,6 +19,7 @@ export default function Home() {
   const [songList, setSongList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [validCity, setValidCity] = useState(true);
+  const ISSERVER = typeof window === "undefined";
 
   const { themeLight } = useContext(ThemeContext);
 
@@ -83,33 +84,35 @@ export default function Home() {
       });
   }
   function handleSaveList(temp) {
-    let genre = "";
-    if (temp >= 32) {
-      genre = "rock";
-    } else if (temp < 32 && temp >= 24) {
-      genre = "pop";
-    } else if (temp < 24 && temp >= 16) {
-      genre = "classical";
-    } else if (temp < 16) {
-      genre = "lofi";
-    }
-    let songListSaved = new Array();
-    if (localStorage.hasOwnProperty("songListSaved")) {
-      songListSaved = JSON.parse(localStorage.getItem("songListSaved"));
-    }
-    let date = new Date();
-    let dateFormated =
-      date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-    const search = {
-      date: dateFormated,
-      genre,
-      temperature,
-      cityName,
-      songList,
-    };
+    if (!ISSERVER) {
+      let genre = "";
+      if (temp >= 32) {
+        genre = "rock";
+      } else if (temp < 32 && temp >= 24) {
+        genre = "pop";
+      } else if (temp < 24 && temp >= 16) {
+        genre = "classical";
+      } else if (temp < 16) {
+        genre = "lofi";
+      }
+      let songListSaved = new Array();
+      if (localStorage.hasOwnProperty("songListSaved")) {
+        songListSaved = JSON.parse(localStorage.getItem("songListSaved"));
+      }
+      let date = new Date();
+      let dateFormated =
+        date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+      const search = {
+        date: dateFormated,
+        genre,
+        temperature,
+        cityName,
+        songList,
+      };
 
-    songListSaved.push(search);
-    localStorage.setItem("songListSaved", JSON.stringify(songListSaved));
+      songListSaved.push(search);
+      localStorage.setItem("songListSaved", JSON.stringify(songListSaved));
+    }
   }
 
   return (
