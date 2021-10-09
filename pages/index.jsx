@@ -186,7 +186,15 @@ export default function Home() {
             </span>
           </Link>
         </div>
-        {!validCity && <div>Digite uma cidade Válida</div>}
+        {!validCity && (
+          <div
+            style={{
+              color: themeLight ? "black" : "white",
+            }}
+          >
+            Digite uma cidade Válida
+          </div>
+        )}
         {showCity && loading == false ? (
           <div
             className={styles.randomMusics}
