@@ -138,7 +138,7 @@ export default function Home() {
           <Image src={Logo} alt="Logo weather music" />
           <h1
             style={{
-              fontSize: 90,
+              fontSize: "4.69vw",
               color: themeLight ? "black" : "white",
             }}
           >
@@ -153,7 +153,7 @@ export default function Home() {
           </h1>{" "}
           <span
             style={{
-              fontSize: 120,
+              fontSize: "6.25vw",
             }}
           >
             .
@@ -161,23 +161,30 @@ export default function Home() {
         </div>
         <div
           style={{
-            width: 170,
+            width: "8.85vw",
             display: "flex",
             justifyContent: "space-between",
             fontWeight: "bold",
             color: themeLight ? "black" : "white",
+            fontSize: "12px",
           }}
         >
           Mudar tema
           <SwitchToggle />
         </div>
         <div className={styles.inputContainer}>
-          <h2 style={{ color: themeLight ? "black" : "white" }}>
+          <h2
+            style={{
+              color: themeLight ? "black" : "white",
+              fontSize: "14px",
+            }}
+          >
             Digite uma cidade:
           </h2>
           <form onSubmit={handleSubmit}>
             <input
               style={{
+                width: 200,
                 backgroundColor: "#0ec99d",
                 color: "white",
               }}
@@ -192,7 +199,9 @@ export default function Home() {
             />
             <input
               style={{
-                marginRight: 10,
+                width: 200,
+
+                marginRight: "0.52vw",
                 backgroundColor: "#0ec99d",
                 color: "white",
                 cursor: "pointer",
@@ -209,6 +218,7 @@ export default function Home() {
                 color: themeLight ? "black" : "white",
                 cursor: "pointer",
                 fontWeight: "bold",
+                fontSize: "12px",
               }}
             >
               Minhas Playlists
@@ -241,8 +251,8 @@ export default function Home() {
             })}
             <button
               style={{
-                width: 90,
-                height: 30,
+                width: "100px",
+                height: "40px",
                 backgroundColor: "#0ec99d",
                 color: "white",
                 border: "none",
