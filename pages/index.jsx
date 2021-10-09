@@ -161,12 +161,12 @@ export default function Home() {
         </div>
         <div
           style={{
-            width: "8.85vw",
+            width: "150px",
             display: "flex",
             justifyContent: "space-between",
             fontWeight: "bold",
             color: themeLight ? "black" : "white",
-            fontSize: "12px",
+            fontSize: "15px",
           }}
         >
           Mudar tema
