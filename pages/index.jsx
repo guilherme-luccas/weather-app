@@ -136,13 +136,13 @@ export default function Home() {
           <h1
             style={{
               fontSize: 90,
-              color: "black",
+              color: themeLight ? "black" : "white",
             }}
           >
             weather
             <span
               style={{
-                color: "#0ec99d85",
+                color: "#0ec99d",
               }}
             >
               Music
@@ -156,13 +156,28 @@ export default function Home() {
             .
           </span>
         </div>
-        <SwitchToggle />
+        <div
+          style={{
+            width: 170,
+            display: "flex",
+            justifyContent: "space-between",
+            fontWeight: "bold",
+            color: themeLight ? "black" : "white",
+          }}
+        >
+          Mudar tema
+          <SwitchToggle />
+        </div>
         <div className={styles.inputContainer}>
           <h2 style={{ color: themeLight ? "black" : "white" }}>
             Digite uma cidade:
           </h2>
           <form onSubmit={handleSubmit}>
             <input
+              style={{
+                backgroundColor: "#0ec99d",
+                color: "white",
+              }}
               onChange={(ev) => {
                 setCityName(ev.target.value);
                 setShowCity(false);
@@ -173,22 +188,42 @@ export default function Home() {
               className={styles.input}
             />
             <input
-              style={{ marginRight: 10 }}
+              style={{
+                marginRight: 10,
+                backgroundColor: "#0ec99d",
+                color: "white",
+                cursor: "pointer",
+              }}
               type="submit"
               value="Pesquisar"
               className={styles.input}
               disabled={!cityName}
             />
           </form>
-          <Button>
-            <Link href="/MyPlaylists">Minhas Playlists</Link>
-          </Button>
+          <Link href="/MyPlaylists">
+            <span
+              style={{
+                color: themeLight ? "black" : "white",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              Minhas Playlists
+            </span>
+          </Link>
         </div>
         {!validCity && <div>Digite uma cidade Válida</div>}
         {showCity && loading == false ? (
-          <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              textAlign: "center",
+              color: themeLight ? "black" : "white",
+              fontWeight: "bold",
+              fontSize: 15,
+            }}
+          >
             Em <strong>{cityName.toUpperCase()}</strong> está {temperature}°C
-            <div style={{ textAlign: "center" }}>
+            <div style={{ textAlign: "center", marginBottom: 10 }}>
               Sugestões de musicas para esse clima:{" "}
             </div>
             {songList.map((song) => {
@@ -205,7 +240,8 @@ export default function Home() {
               style={{
                 width: 90,
                 height: 30,
-                backgroundColor: "#0ec99d85",
+                backgroundColor: "#0ec99d",
+                color: "white",
                 border: "none",
                 textDecoration: "none",
                 cursor: "pointer",

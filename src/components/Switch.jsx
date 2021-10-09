@@ -14,7 +14,7 @@ export function SwitchToggle() {
 
   return (
     <div>
-      <Switch onColor="#0ec99d85" onChange={handleChange} checked={checked} />
+      <Switch onColor="#0ec99d" onChange={handleChange} checked={checked} />
     </div>
   );
 }

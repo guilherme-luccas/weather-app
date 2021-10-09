@@ -1,3 +1,10 @@
+import { useContext } from "react";
+import { ThemeContext } from "../ThemeContext";
+
 export function Loading() {
-  return <div>Carregando...</div>;
+  const { themeLight } = useContext(ThemeContext);
+
+  return (
+    <div style={{ color: themeLight ? "black" : "white" }}>Carregando...</div>
+  );
 }
