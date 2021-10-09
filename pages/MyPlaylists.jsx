@@ -39,9 +39,9 @@ export default function MyPlaylists() {
 
   return (
     <div
+      className={styles.container}
       style={{
         backgroundColor: themeLight ? "white" : "black",
-        height: "100vh",
       }}
     >
       <Container>

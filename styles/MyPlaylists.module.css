@@ -1,3 +1,6 @@
+.container {
+  height: "100vh";
+}
 .switchContainer {
   width: 150px;
   display: flex;
@@ -45,4 +48,9 @@
   border-radius: 10px;
   font-family: sans-serif;
   font-weight: bold;
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
 }
