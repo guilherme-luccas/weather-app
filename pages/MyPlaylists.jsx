@@ -10,7 +10,7 @@ export default function MyPlaylists() {
   const { themeLight } = useContext(ThemeContext);
 
   function deletePlaylist(ev) {
-    if (typeof window !== "undefined") {
+    if (localStorage) {
       let arr = [...JSON.parse(localStorage.getItem("songListSaved"))];
       arr.splice(ev, 1);
       localStorage.setItem("songListSaved", JSON.stringify(arr));
@@ -22,7 +22,8 @@ export default function MyPlaylists() {
     // const songs = JSON.parse(localStorage.getItem("songListSaved")).map((pl) =>
     //   pl.map((song) => song.track)
     // );
-    if (typeof window !== "undefined") {
+
+    if (localStorage) {
       const songs = JSON.parse(localStorage.getItem("songListSaved"));
 
       console.log("songs", songs);
