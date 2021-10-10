@@ -19,23 +19,14 @@ export default function MyPlaylists() {
   }
 
   useEffect(() => {
-    // const songs = JSON.parse(localStorage.getItem("songListSaved")).map((pl) =>
-    //   pl.map((song) => song.track)
-    // );
-
     const songs = JSON.parse(localStorage.getItem("songListSaved"));
+
     setLocalS(songs);
 
-    console.log("songs", songs);
     setPlaylists(songs);
   }, [monitor]);
 
-  useEffect(() => {
-    console.log("useffectmonitor", playlists);
-    // if (playlists.length > 0) {
-    //   localStorage.setItem("songListSaved", JSON.stringify(playlists));
-    // }
-  }, [playlists]);
+  useEffect(() => {}, [playlists]);
 
   return (
     <div

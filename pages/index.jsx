@@ -192,7 +192,7 @@ export default function Home() {
               color: themeLight ? "black" : "white",
             }}
           >
-            Digite uma cidade Válida
+            Digite uma cidade válida
           </div>
         )}
         {showCity && loading == false ? (
@@ -204,7 +204,7 @@ export default function Home() {
           >
             Em <strong>{cityName.toUpperCase()}</strong> está {temperature}°C
             <div className={styles.suggestions}>
-              Sugestões de musicas para esse clima:{" "}
+              Sugestões de músicas para esse clima:{" "}
             </div>
             {songList.map((song) => {
               return (
