@@ -138,7 +138,14 @@ export default function Home() {
             weather
             <span className={styles.spanMusic}>Music</span>
           </h1>{" "}
-          <span className={styles.point}>.</span>
+          <span
+            className={styles.point}
+            style={{
+              color: themeLight ? "black" : "white",
+            }}
+          >
+            .
+          </span>
         </div>
         <div
           className={styles.switchContainer}
